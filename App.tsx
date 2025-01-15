@@ -1,19 +1,32 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
-export default function App() {
+export const App = () => {
+  const [activeColor, setActiveColor] = useState('white');
+
+  const getRandomColor = () => {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    setActiveColor(color);
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <TouchableOpacity
+      style={[styles.container, { backgroundColor: activeColor }]}
+      onPress={() => getRandomColor()}
+      activeOpacity={0.9}
+    >
+      <Text>Hello there</Text>
+    </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
   },
